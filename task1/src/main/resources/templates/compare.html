@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+
+<div th:if="${header}">
+    <h2 th:text="${header}"/>
+</div>
+
+<div th:if="${files}">
+    <ul>
+        <li th:each="file : ${files}">
+            <a th:href="${file}" th:text="${file}"></a>
+        </li>
+    </ul>
+    <form method="POST" enctype="application/x-www-form-urlencoded" action="/compare">
+        <input type="submit" value="Compare">
+    </form>
+    <div th:if="${score}" >
+        <p th:text="${score}" />
+    </div>
+</div>
+<div th:unless="${files}">
+    <form method="POST" enctype="multipart/form-data" action="/uploadResume">
+        <table>
+            <tr><td>2 Resumé to upload:</td><td><input type="file" name="file" multiple/></td></tr>
+            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+        </table>
+    </form>
+</div>
+
+<div>
+    <p th:utext="${content}"></p>
+    <form method="GET" action="/">
+        <input type="submit" value="Return to homepage">
+    </form>
+</div>
+
+</body>
+</html>
