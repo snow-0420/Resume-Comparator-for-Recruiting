@@ -43,14 +43,15 @@ public class GPTChatService {
         prompt.add(getResume2);
 
         ChatMessage compareRequest = new ChatMessage("user",
-                "Now I want you to score each resume out of 100 accordingly " +
-                        "to the job posting above, and reply strictly in this format:\n" +
-                        "\"<First/Second> resume is better.\nFirst Resume: <your score for the first resume>/100" +
-                        "\nSecond Resume: <your score for the second resume>/100\"\n" +
-                        "Don't reply in other format than specified.");
+                """
+                        Now I want you to score each resume out of 100 accordingly to the job posting above, and reply strictly in this format:
+                        "<First/Second> resume is better.
+                        First Resume: <your score for the first resume>/100
+                        Second Resume: <your score for the second resume>/100"
+                        Don't reply in other format than specified.""");
         prompt.add(compareRequest);
 
-        OpenAiService service = new OpenAiService("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");
+        OpenAiService service = new OpenAiService(System.getenv("OPENAI_API_KEY"));
         ChatCompletionRequest completionRequest = ChatCompletionRequest.builder()
                 .messages(prompt)
                 .model("gpt-3.5-turbo-1106")
